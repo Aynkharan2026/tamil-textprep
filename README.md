@@ -1,81 +1,123 @@
 # tamil-textprep
 
-Shared **Eezham-Tamil text-preparation layer** for every VoxTN Tamil voice
-surface: Aravam Voice, ThaiVeedu archive audio, VoxVoIP Tamil voice agents.
+**Eezham (Sri Lankan) Tamil text preparation for speech and language systems.**
+
+Turns raw text into fully-verbalized Tamil that a TTS engine can speak correctly — with Eezham forms preserved, not normalized away.
+
+---
+
+## Why this exists
+
+Every major AI model is trained on **Indian Tamil**. Eezham Tamil — the Tamil of Sri Lanka and its diaspora — is a different variant. And the models do not merely fail to recognize it.
+
+**They silently normalize it into Indian Tamil.**
+
+These are not errors. They are *corrections*. The model believes it is helping. That is what makes them dangerous: they pass every automated check, and only a Tamil reader notices.
+
+Measured, reproducibly, across five independent capabilities:
+
+| Source (Eezham) | What the model produced | Where |
+|---|---|---|
+| `வைக்கப்பெற்றன` | `வைக்கப்பட்டன` | OCR |
+| `எம்கண்ணில்` | `எங்கண்ணில்` | OCR |
+| `எமது` | `நமது` | generation |
+| `எம்மை` | `நம்மை` | speech-to-text |
+| `கதைப்பம்` | `கதைப்போம்` | TTS round-trip |
+| `அம்மாட்டைச் சொல்லுங்கோ…` | *dropped entirely* | translation |
+
+And speech systems get the basics wrong. A Tamil TTS engine handed `2024` will happily say **"இரண்டு பூச்சியம் இரண்டு நான்கு"** — reciting four digits, not speaking a year. Another will code-switch to English mid-sentence. Neither is Tamil.
+
+This library is the floor beneath all of that.
+
+---
+
+## What it does
 
 ```
-sanitize → classify (tags → heuristics) → verbalize → Eezham lexicon → emit
+sanitize → classify → verbalize → Eezham lexicon → emit
 ```
 
-Output is **fully-verbalized Tamil — no digits reach any TTS engine.**
-Why: the 2026-07-12 engine matrix showed Sarvam v3 reads years digit-by-digit
-("இரண்டு பூச்சியம் இரண்டு நான்கு"), Sarvam v2 code-switches to English
-("ட்வென்டி ட்வென்டி ஃபோர்", phone numbers as English *hundreds*) and reads
-`11/07/2026` as **November 7 where v3 says July 11** — and Sarvam TTS exposes
-no working normalization control (unknown params are silently accepted).
+- **Numerals, context-aware.** `2024` → `இரண்டாயிரத்து இருபத்து நான்காம் ஆண்டு` (year), not four digits. `65` → `அறுபத்தைந்து வயது` (age) vs `அறுபத்தைந்து` (count) vs a digit-string (phone). Dates, currency, ordinals, percentages, decimals, ranges.
+- **Eezham-correct forms.** `டொலர்`, not `டாலர்`. Proper sandhi. Verified against a real Eezham corpus, not assumed.
+- **The dual convention, handled properly.** Diaspora Tamil uses *both*: **மில்லியன்** in Canadian/Western contexts, **லட்சம்/கோடி** for homeland contexts. This is not an ambiguity to resolve — it is a context rule, and both are correct.
+- **English-in-Tamil, governed.** Brand names, proper nouns, acronyms — handled by an editable table, not by guesswork.
+- **Every transformation is attributable.** Each change carries the rule ID that produced it. Nothing changes silently.
 
-## Usage
+## The tag contract (recommended)
+
+Machine-generated text *knows* what its numbers mean. Say so:
+
+```
+{{phone:416-548-7496}}  {{year:2024}}  {{date:2026-07-11}}  {{count:65}}
+```
+
+Explicit tags are the primary path. For free text, 13 ordered heuristics apply — each logging which rule fired, with the ambiguous cases (bare 4-digit year-vs-count, DD/MM vs MM/DD) documented as known failure modes rather than hidden. Slash dates in free text follow the house rule DD/MM/YYYY; tag your dates in ISO to stay unambiguous.
+
+## Install
+
+```bash
+pip install git+https://github.com/Aynkharan2026/tamil-textprep@v0.2.0
+```
 
 ```python
 from tamil_textprep import normalize
-
-normalize("2024-ம் ஆண்டு அவருக்கு 65 வயது.")
-# → "இரண்டாயிரத்து இருபத்து நான்காம் ஆண்டு அவருக்கு அறுபத்தைந்து வயது."
-
-# The CONTRACT for machine-generated text (voice agents): explicit tags.
-normalize("{{phone:4165487496}} ஐ அழையுங்கள், {{time:14:30}} மணிக்கு.")
+normalize("2024-ம் ஆண்டு")   # → இரண்டாயிரத்து இருபத்து நான்காம் ஆண்டு
 ```
 
-CLI: `tamil-textprep "text" --report` · HTTP: `uvicorn tamil_textprep.api:app`
-(the `/normalize` JSON contract is the stable surface a future `voxtn-mcp`
-tool wraps).
+A CLI and a FastAPI `/normalize` endpoint are included.
 
-## The three tiers of number-context (honest by design)
+---
 
-1. **Explicit tags** `{{phone:…}} {{year:…}} {{date:YYYY-MM-DD}} {{money:50 CAD}}
-   {{pct:…}} {{ord:…}} {{count:…}} {{digits:…}} {{time:HH:MM}} {{num:…|convention=…}}`
-   — zero ambiguity; REQUIRED for voice-agent/app-generated text.
-2. **Deterministic heuristics** for free text — ordered rules `H1…H13`, every
-   match logged with its rule id (`normalize(report=[])`). Known failure modes
-   are documented in `classify.py` and are deliberate: bare 4-digit
-   year-without-context reads as cardinal; slash dates use the **house rule
-   DD/MM/YYYY** (US-formatted sources will misread — tag them); street
-   addresses read as cardinals; Tamil-script numerals (௧௨௩) unsupported in v1.
-3. **LLM fallback hook** (`llm_fallback=`) for flagged ambiguities only.
-   Never default; never for archive audio.
+## Why word boundaries matter (a real bug, kept as a test)
 
-## Eezham rules (corpus-evidenced, ThaiVeedu 1,030-article corpus)
+An earlier reverse-transliteration pass substring-matched *inside* Tamil words. The entry `லைக் → like` turned:
 
-| Rule | Evidence |
-|---|---|
-| டொலர் never டாலர் | 178:11 |
-| புள்ளி never பாயிண்ட் (decimals) | 251:0 |
-| பூச்சியம் never பூஜ்ஜியம் (zero) | 44:0 |
-| % → வீதம்; dates → …ஆம் திகதி | house style |
-| **Large numbers: DUAL convention** — மில்லியன்/பில்லியன் in Canadian/CAD contexts, இலட்சம்/கோடி in homeland/LKR contexts | மில்லியன்-family 278 vs லட்சம்/கோடி ≈390 hits — both are house forms. Implemented per-call (`convention=`), currency spans auto-pick (LKR→lakh). Default `million`. **Awaiting Kumar Annai's ratification.** |
+- **பல்கலைக்கழகம்** (university) → `பல்க likeகழகம்`
+- **தொலைக்காட்சி** (television) → mangled the same way
 
-## English-in-Tamil exception table
+**8,690 corruptions per 1.578 million words** — one every 181 words. The word `பின்` was mapped to `PIN`.
 
-`tamil_textprep/data/english_exceptions.json` — **data, not code; owned by
-Karan / Kumar Annai.** Per-entry policy `speak-as-english | transliterate |
-spell-out`, with per-engine overrides (bulbul:v2 garbles Latin — it said
-"Voxel" for VoxTN and "போக்ஸ்" for PBX in testing, so v2 gets everything
-transliterated).
+All 13 real victim words are now permanent regression tests. Reverse transliteration operates on **whole tokens only**, against an explicit list, and a `reverse_tamil` field protects genuine Tamil words (`மின்னஞ்சல்`) from ever being Anglicized.
 
-## Core numeral engine
+*A rule written by someone who does not speak the language will find a way to break it.*
 
-[`open-tamil`](https://pypi.org/project/open-tamil/) `tamil.numeral` — chosen
-after property-testing 4,017 cases: forward generation is robust (zero
-digit-leaks/exceptions), proper sandhi (அறுபத்தைந்து, தொன்னூற்றாறு), SL-literary
-இலட்சம், and it ships both lakh- and million-based groupings. Wrapper fixes
-(see `numwords.py`): பூஜ்ஜியம்→பூச்சியம், நூற்றி→நூற்று, whitespace, year-form
-fusion (இரண்டு ஆயிரத்து→இரண்டாயிரத்து). `tamilstr2num` (reverse) fails on ~41%
-of forward output — never used as a validator.
+---
 
-## Guarantees
+## Evidence
 
-- No ASCII digit survives `normalize()` (tested).
-- Idempotent: `normalize(normalize(x)) == normalize(x)` (tested).
-- User prose is never rewritten — only classified numeral/exception spans.
-  Dialect drift in prose belongs to the dialect guard (flag-for-review),
-  not here.
+Usage rulings are settled by **counting the corpus, not asking a model.** Drawn from *ThaiVeedu* (தாய்வீடு), a Tamil diaspora magazine — 1,030 structured articles:
+
+```
+டொலர்   178 : 11   (vs டாலர்)
+புள்ளி   251 : 0
+பூச்சியம்  44 : 0
+```
+
+Where the corpus is silent, the question is flagged for a human editor — never guessed.
+
+---
+
+## Contributing
+
+**If you speak Eezham Tamil and something here sounds wrong, you are the authority. Please open an issue.**
+
+Especially wanted:
+- Words the library gets wrong
+- Normalizations you have seen an AI make to *your* Tamil
+- Regional and generational variation we have not captured
+
+`english_exceptions.json` is a governed, human-editable table — deliberately data, not code, so that editors rather than engineers own it.
+
+---
+
+## Who
+
+Built by **[VoxTN](https://voxtn.com)** — sovereign Tamil-first AI and telephony infrastructure.
+
+> *AI is not a luxury item. Built by one of you, for all of you.*
+
+Eezham Tamil survived a war. It should not be quietly edited out of existence by a text pipeline.
+
+## License
+
+MIT. Use it, fork it, ship it. The point is that the correct forms win.
