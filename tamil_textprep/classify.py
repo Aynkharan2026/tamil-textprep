@@ -51,7 +51,7 @@ _H_RULES: list[tuple[str, str, re.Pattern]] = [
     ("H3_date_slash", "date_dmy", re.compile(r"(?<!\d)(\d{1,2})/(\d{1,2})/(\d{4})(?!\d)")),
     ("H4_time", "time", re.compile(r"(?<!\d)(\d{1,2}):(\d{2})(?!\d)")),
     ("H5_money", "money", re.compile(
-        r"[$£€]\s?\d[\d,]*(?:\.\d+)?|\d[\d,]*(?:\.\d+)?\s?(?=\s?(?:டொலர்|டாலர்|ரூபா|ரூ\.))")),
+        r"[$£€]\s?\d[\d,]*(?:\.\d+)?|\d[\d,]*(?:\.\d+)?(?=\s?(?:டொலர்|டாலர்|ரூபா|ரூ\.))")),
     ("H6_pct", "pct", re.compile(r"(?<!\d)\d+(?:\.\d+)?\s?%|(?<!\d)\d+(?:\.\d+)?(?=\s?(?:வீதம|சதவீதம))")),
     ("H7_range", "range", re.compile(r"(?<!\d)(\d{1,4})\s?[–—-]\s?(\d{1,4})(?!\d)(?=\s|$|[.,)])")),
     ("H8_year_suffixed", "year_ord", re.compile(

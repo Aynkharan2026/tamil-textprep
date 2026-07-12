@@ -70,6 +70,11 @@ def test_currency_symbol_and_unit_word():
     assert out2.count("டொலர்") == 1 and "ஐம்பது" in out2
 
 
+def test_money_unit_word_keeps_space():
+    out = normalize("1,50,000 டொலர் பெறுமதியான வீடு")
+    assert "ஆயிரம் டொலர்" in out and "ஆயிரம்டொலர்" not in out
+
+
 def test_date_house_rule_ddmm():
     out = normalize("11/07/2026 அன்று நடைபெறும்.")
     assert "ஜூலை" in out and "பதினொன்றாம் திகதி" in out
