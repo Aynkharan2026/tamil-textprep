@@ -14,7 +14,7 @@ Every major AI model is trained on **Indian Tamil**. Eezham Tamil — the Tamil 
 
 These are not errors. They are *corrections*. The model believes it is helping. That is what makes them dangerous: they pass every automated check, and only a Tamil reader notices.
 
-Measured, reproducibly, across five independent capabilities:
+Measured, reproducibly, across four independent capabilities:
 
 | Source (Eezham) | What the model produced | Where |
 |---|---|---|
@@ -48,10 +48,10 @@ sanitize → classify → verbalize → Eezham lexicon → emit
 Machine-generated text *knows* what its numbers mean. Say so:
 
 ```
-{{phone:416-548-7496}}  {{year:2024}}  {{date:2026-07-11}}  {{count:65}}
+{{phone:416-548-7496}}  {{year:2024}}  {{date:11/07/2026}}  {{age:65}}
 ```
 
-Explicit tags are the primary path. For free text, 13 ordered heuristics apply — each logging which rule fired, with the ambiguous cases (bare 4-digit year-vs-count, DD/MM vs MM/DD) documented as known failure modes rather than hidden. Slash dates in free text follow the house rule DD/MM/YYYY; tag your dates in ISO to stay unambiguous.
+Explicit tags are the primary path. For free text, 13 ordered heuristics apply — each logging which rule fired, with the ambiguous cases (bare 4-digit year-vs-count, DD/MM vs MM/DD) documented as known failure modes rather than hidden.
 
 ## Install
 
