@@ -1,4 +1,4 @@
-"""tamil-textprep — the shared Eezham-Tamil text-preparation layer.
+"""tamil-textprep — the shared Eelam-Tamil text-preparation layer.
 
 One pipeline for every Tamil voice surface (Aravam Voice, ThaiVeedu
 archive audio, VoxVoIP voice agents):

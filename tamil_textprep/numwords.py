@@ -1,4 +1,4 @@
-"""Eezham-Tamil number verbalization.
+"""Eelam-Tamil number verbalization.
 
 Core cardinal engine is open-tamil's ``tamil.numeral`` (proper sandhi,
 SL-literary இலட்சம் spelling, both lakh- and million-based groupings).

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Layer-1 Eezham corpus audit — the regression gate.
+"""Layer-1 Eelam corpus audit — the regression gate.
 
 Runs every article of a corpus (jsonl with a 'body' field) through
 tamil_textprep.normalize() and demands that EVERY word-level change be

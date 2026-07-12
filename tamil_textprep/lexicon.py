@@ -1,4 +1,4 @@
-"""English-in-Tamil exception table + Eezham lexicon application.
+"""English-in-Tamil exception table + Eelam lexicon application.
 
 The tables are DATA, not code — `data/english_exceptions.json` is owned
 and edited by Karan / Kumar Annai (same governance family as the dialect

@@ -1,4 +1,4 @@
-"""Per-class verbalization → Eezham-correct spoken Tamil.
+"""Per-class verbalization → Eelam-correct spoken Tamil.
 
 House rules (corpus-evidenced, flagged for Kumar Annai's ratification):
   * டொலர் not டாலர் (ThaiVeedu corpus 178:11), சதம் for cents
