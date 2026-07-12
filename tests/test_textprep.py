@@ -45,6 +45,9 @@ def test_percent_no_duplicate_veetham():
     # source already says வீதம் — must not double it
     out = normalize("இது 25 வீதமாக அதிகரிக்கும்.")
     assert out.count("வீத") == 1 and "இருபத்தைந்து" in out
+    # pathological redundant source "25% வீதம்" — keep the writer's word only
+    out2 = normalize("விலை 25% வீதம் உயர்ந்தது.")
+    assert out2.count("வீத") == 1
 
 
 def test_decimal_pulli():
