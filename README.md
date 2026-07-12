@@ -2,7 +2,7 @@
 
 **Eelam (also written Eezham) Tamil — Sri Lankan Tamil — text preparation for speech and language systems.**
 
-Turns raw text into fully-verbalized Tamil that a TTS engine can speak correctly — with Eezham forms preserved, not normalized away.
+Turns raw text into fully-verbalized Tamil that a TTS engine can speak correctly — with Eelam forms preserved, not normalized away.
 
 ---
 
@@ -16,7 +16,7 @@ These are not errors. They are *corrections*. The model believes it is helping. 
 
 Measured, reproducibly, across four independent capabilities:
 
-| Source (Eezham) | What the model produced | Where |
+| Source (Eelam) | What the model produced | Where |
 |---|---|---|
 | `வைக்கப்பெற்றன` | `வைக்கப்பட்டன` | OCR |
 | `எம்கண்ணில்` | `எங்கண்ணில்` | OCR |
@@ -34,11 +34,11 @@ This library is the floor beneath all of that.
 ## What it does
 
 ```
-sanitize → classify → verbalize → Eezham lexicon → emit
+sanitize → classify → verbalize → Eelam lexicon → emit
 ```
 
 - **Numerals, context-aware.** `2024` → `இரண்டாயிரத்து இருபத்து நான்காம் ஆண்டு` (year), not four digits. `65` → `அறுபத்தைந்து வயது` (age) vs `அறுபத்தைந்து` (count) vs a digit-string (phone). Dates, currency, ordinals, percentages, decimals, ranges.
-- **Eelam-correct forms.** `டொலர்`, not `டாலர்`. Proper sandhi. Verified against a real Eezham corpus, not assumed.
+- **Eelam-correct forms.** `டொலர்`, not `டாலர்`. Proper sandhi. Verified against a real Eelam corpus, not assumed.
 - **The dual convention, handled properly.** Diaspora Tamil uses *both*: **மில்லியன்** in Canadian/Western contexts, **லட்சம்/கோடி** for homeland contexts. This is not an ambiguity to resolve — it is a context rule, and both are correct.
 - **English-in-Tamil, governed.** Brand names, proper nouns, acronyms — handled by an editable table, not by guesswork.
 - **Every transformation is attributable.** Each change carries the rule ID that produced it. Nothing changes silently.
