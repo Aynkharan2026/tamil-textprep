@@ -94,6 +94,26 @@ def test_time():
     assert "பிற்பகல் இரண்டு மணி முப்பது" in out
 
 
+def test_abbreviated_year_range():
+    # Layer-1 corpus-audit finds: 1937–45 = 1937–1945; 1870–1 = 1870–1871
+    out = normalize("(1937–45) காலப்பகுதி")
+    assert "நாற்பத்தைந்து வரை" in out and "தொள்ளாயிரத்து முப்பத்தேழு" in out
+    out2 = normalize("(1870–1) யுத்தம்")
+    assert "எழுபத்தொன்று வரை" in out2  # NOT "ஒன்று வரை"
+
+
+def test_score_chains_not_ranges():
+    # asymmetric dash = tally/negative, not a range
+    out = normalize("வாக்குகள் 10 -7 -3 பதிவாகின.")
+    assert "முதல்" not in out
+
+
+def test_corpus_evidenced_spellings():
+    assert nw.cardinal(400) == "நானூறு"
+    assert nw.cardinal(12) == "பன்னிரண்டு"
+    assert nw.cardinal(95) == "தொண்ணூற்றைந்து"
+
+
 def test_year_range():
     out = normalize("2026–2028 காலப்பகுதியில்")
     assert "இரண்டாயிரத்து இருபத்தாறு முதல் இரண்டாயிரத்து இருபத்தெட்டு வரை" in out

@@ -86,7 +86,8 @@ def reverse_transliterate(text: str) -> str:
     return _TAMIL_TOKEN.sub(sub, text)
 
 
-def apply_english_exceptions(text: str, engine: str | None = None) -> str:
+def apply_english_exceptions(text: str, engine: str | None = None,
+                             report: list | None = None) -> str:
     table = _load("english_exceptions.json")["entries"]
     ekey = "v2" if engine in ("sarvam_v2", "bulbul:v2") else None
     for entry in table:
@@ -94,6 +95,8 @@ def apply_english_exceptions(text: str, engine: str | None = None) -> str:
         if policy == "speak-as-english":
             continue
         target = entry["tamil"] if policy == "transliterate" else entry.get("spelled", entry["tamil"])
-        text = re.sub(rf"(?<![A-Za-z]){re.escape(entry['term'])}(?![A-Za-z])",
-                      target, text)
+        text, n = re.subn(rf"(?<![A-Za-z]){re.escape(entry['term'])}(?![A-Za-z])",
+                          target, text)
+        if n and report is not None:
+            report.append((f"LEX:{entry['term']}", entry["term"], target))
     return text

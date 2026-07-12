@@ -53,7 +53,10 @@ _H_RULES: list[tuple[str, str, re.Pattern]] = [
     ("H5_money", "money", re.compile(
         r"[$£€]\s?\d[\d,]*(?:\.\d+)?|\d[\d,]*(?:\.\d+)?(?=\s?(?:டொலர்|டாலர்|ரூபா|ரூ\.))")),
     ("H6_pct", "pct", re.compile(r"(?<!\d)\d+(?:\.\d+)?\s?%|(?<!\d)\d+(?:\.\d+)?(?=\s?(?:வீதம|சதவீதம))")),
-    ("H7_range", "range", re.compile(r"(?<!\d)(\d{1,4})\s?[–—-]\s?(\d{1,4})(?!\d)(?=\s|$|[.,)])")),
+    # Symmetric dash spacing only: "85 – 120" and "1937–45" are ranges;
+    # "10 -7 -3" (score/tally chains, negative numbers) is NOT — Layer-1
+    # corpus audit caught the asymmetric form misfiring on vote tallies.
+    ("H7_range", "range", re.compile(r"(?<!\d)(\d{1,4})(?:\s[–—-]\s|[–—-])(\d{1,4})(?!\d)(?=\s|$|[.,);])")),
     ("H8_year_suffixed", "year_ord", re.compile(
         r"(?<!\d)((?:19|20)\d{2})(?=\s?(?:-ம்|-ஆம்|ஆம்|ம்)\s?ஆண்டு|(?:-இல்|-ல்|இல்)|\s?ஆண்டு)")),
     ("H9_decimal", "decimal", re.compile(r"(?<!\d)\d+\.\d+(?!\d)")),

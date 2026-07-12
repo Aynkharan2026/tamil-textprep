@@ -22,6 +22,10 @@ from tamil import numeral as _numeral
 _FIXES: list[tuple[str, str]] = [
     ("பூஜ்ஜியம்", "பூச்சியம்"),
     ("நூற்றி ", "நூற்று "),
+    # Layer-1 corpus-audit finds (2026-07-12), corpus-evidenced:
+    ("நாநூறு", "நானூறு"),        # 400 — corpus 65:0
+    ("பனிரண்டு", "பன்னிரண்டு"),   # 12  — corpus 36:0
+    ("தொன்னூ", "தொண்ணூ"),        # 90s — corpus 24:2 (covers தொன்னூறு/தொன்னூற்று-)
 ]
 
 # Digit words for digit-by-digit reading (phone numbers, codes).
