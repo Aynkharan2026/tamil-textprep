@@ -64,6 +64,10 @@ def _consume_suffix(text: str, span: Span) -> tuple[Span, int]:
             return span, span.end + m.end()
         # bare "2024 ஆண்டு" — no suffix to consume
         span = dataclasses.replace(span, cls="year_ord_bare")
+    if span.cls == "pct" and "%" in span.value:
+        # redundant source "25% வீதம்" — drop our வீதம், keep the writer's word
+        if re.match(r"^\s?(சத)?வீத", text[span.end:]):
+            span = dataclasses.replace(span, cls="pct_bare")
     return span, span.end
 
 
@@ -75,9 +79,9 @@ def _render(span: Span, convention: str) -> str:
         return nw.year_ordinal(int(re.sub(r"\D", "", span.value))) + " "
     if span.cls == "year_ord":
         return nw.year_ordinal(int(re.sub(r"\D", "", span.value)))
-    if span.cls == "pct":
+    if span.cls in ("pct", "pct_bare"):
         num = re.sub(r"[%\s]", "", span.value)
-        if "%" in span.value:
+        if "%" in span.value and span.cls == "pct":
             return verbalize(span, convention)
         # source already carries வீதம்/சதவீதம் — cardinal only
         if "." in num:

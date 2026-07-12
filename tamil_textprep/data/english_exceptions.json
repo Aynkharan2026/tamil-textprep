@@ -1,23 +1,915 @@
 {
-  "comment": "English-in-Tamil exception table. OWNED BY KARAN / KUMAR ANNAI — edit freely, no code changes needed. policy: speak-as-english | transliterate | spell-out. Optional per-engine override key 'v2' (bulbul:v2 garbles Latin: VoxTN->'Voxel', PBX->'போக்ஸ்' in 2026-07-12 testing). 'spelled' is the letter-by-letter form for spell-out.",
-  "entries": [
-    {"term": "VoxTN",     "policy": "transliterate", "tamil": "வொக்ஸ் ரி என்"},
-    {"term": "ThaiVeedu", "policy": "transliterate", "tamil": "தாய்வீடு"},
-    {"term": "Aravam",    "policy": "transliterate", "tamil": "அரவம்"},
-    {"term": "Toronto",   "policy": "transliterate", "tamil": "ரொறன்ரோ"},
-    {"term": "Scarborough","policy": "transliterate", "tamil": "ஸ்காபரோ"},
-    {"term": "Ontario",   "policy": "transliterate", "tamil": "ஒன்ராறியோ"},
-    {"term": "Montreal",  "policy": "transliterate", "tamil": "மொன்றியால்"},
-    {"term": "Jaffna",    "policy": "transliterate", "tamil": "யாழ்ப்பாணம்"},
-    {"term": "AI",        "policy": "spell-out", "tamil": "ஏ.ஐ", "spelled": "ஏ ஐ"},
-    {"term": "PBX",       "policy": "spell-out", "tamil": "பி.பி.எக்ஸ்", "spelled": "பி பி எக்ஸ்"},
-    {"term": "OEB",       "policy": "spell-out", "tamil": "ஓ.ஈ.பி", "spelled": "ஓ ஈ பி"},
-    {"term": "PR",        "policy": "spell-out", "tamil": "பி.ஆர்", "spelled": "பி ஆர்"},
-    {"term": "kWh",       "policy": "transliterate", "tamil": "கிலோவாற் மணித்தியாலம்"},
-    {"term": "GPS",       "policy": "spell-out", "tamil": "ஜி.பி.எஸ்", "spelled": "ஜி பி எஸ்"},
-    {"term": "OK",        "policy": "transliterate", "tamil": "ஓகே"},
-    {"term": "email",     "policy": "transliterate", "tamil": "மின்னஞ்சல்"},
-    {"term": "Canada",    "policy": "transliterate", "tamil": "கனடா", "v2": "transliterate"},
-    {"term": "IRCC",      "policy": "spell-out", "tamil": "ஐ.ஆர்.சி.சி", "spelled": "ஐ ஆர் சி சி"}
-  ]
+ "comment": "English-in-Tamil exception table. OWNED BY KARAN / KUMAR ANNAI — edit freely, no code changes needed. policy: speak-as-english | transliterate | spell-out. Optional per-engine override key 'v2' (bulbul:v2 garbles Latin: VoxTN->'Voxel', PBX->'போக்ஸ்' in 2026-07-12 testing). 'spelled' is the letter-by-letter form for spell-out. REVERSE entries (reverse:true) power dialect-path reverse-transliteration (Tamil-script English -> Latin) via lexicon.reverse_transliterate — WHOLE-TOKEN anchored, never substrings. CURATION 2026-07-12: entry பின்->PIN REMOVED — பின் is a core Tamil word (after/behind); it caused 5,600 corruption hits in the ThaiVeedu corpus (பின்னர், பின்வருமாறு...). If banking-PIN is ever needed, tag it explicitly at source.",
+ "entries": [
+  {
+   "term": "VoxTN",
+   "policy": "transliterate",
+   "tamil": "வொக்ஸ் ரி என்"
+  },
+  {
+   "term": "ThaiVeedu",
+   "policy": "transliterate",
+   "tamil": "தாய்வீடு"
+  },
+  {
+   "term": "Aravam",
+   "policy": "transliterate",
+   "tamil": "அரவம்"
+  },
+  {
+   "term": "Toronto",
+   "policy": "transliterate",
+   "tamil": "ரொறன்ரோ"
+  },
+  {
+   "term": "Scarborough",
+   "policy": "transliterate",
+   "tamil": "ஸ்காபரோ"
+  },
+  {
+   "term": "Ontario",
+   "policy": "transliterate",
+   "tamil": "ஒன்ராறியோ"
+  },
+  {
+   "term": "Montreal",
+   "policy": "transliterate",
+   "tamil": "மொன்றியால்"
+  },
+  {
+   "term": "Jaffna",
+   "policy": "transliterate",
+   "tamil": "யாழ்ப்பாணம்"
+  },
+  {
+   "term": "AI",
+   "policy": "spell-out",
+   "tamil": "ஏ.ஐ",
+   "spelled": "ஏ ஐ"
+  },
+  {
+   "term": "PBX",
+   "policy": "spell-out",
+   "tamil": "பி.பி.எக்ஸ்",
+   "spelled": "பி பி எக்ஸ்"
+  },
+  {
+   "term": "OEB",
+   "policy": "spell-out",
+   "tamil": "ஓ.ஈ.பி",
+   "spelled": "ஓ ஈ பி"
+  },
+  {
+   "term": "PR",
+   "policy": "spell-out",
+   "tamil": "பி.ஆர்",
+   "spelled": "பி ஆர்"
+  },
+  {
+   "term": "kWh",
+   "policy": "transliterate",
+   "tamil": "கிலோவாற் மணித்தியாலம்"
+  },
+  {
+   "term": "GPS",
+   "policy": "spell-out",
+   "tamil": "ஜி.பி.எஸ்",
+   "spelled": "ஜி பி எஸ்"
+  },
+  {
+   "term": "OK",
+   "policy": "transliterate",
+   "tamil": "ஓகே"
+  },
+  {
+   "term": "email",
+   "policy": "transliterate",
+   "tamil": "மின்னஞ்சல்",
+   "reverse": true,
+   "reverse_tamil": "இமெயில்",
+   "note": "reverse fires ONLY on the transliterated form; the real Tamil word (tamil field) must never be Anglicized"
+  },
+  {
+   "term": "Canada",
+   "policy": "transliterate",
+   "tamil": "கனடா",
+   "v2": "transliterate"
+  },
+  {
+   "term": "IRCC",
+   "policy": "spell-out",
+   "tamil": "ஐ.ஆர்.சி.சி",
+   "spelled": "ஐ ஆர் சி சி"
+  },
+  {
+   "term": "computer",
+   "policy": "speak-as-english",
+   "tamil": "கம்ப்யூட்டர்",
+   "reverse": true
+  },
+  {
+   "term": "software",
+   "policy": "speak-as-english",
+   "tamil": "சாஃப்ட்வேர்",
+   "reverse": true
+  },
+  {
+   "term": "hardware",
+   "policy": "speak-as-english",
+   "tamil": "ஹார்டுவேர்",
+   "reverse": true
+  },
+  {
+   "term": "internet",
+   "policy": "speak-as-english",
+   "tamil": "இன்டர்நெட்",
+   "reverse": true
+  },
+  {
+   "term": "website",
+   "policy": "speak-as-english",
+   "tamil": "வெப்சைட்",
+   "reverse": true
+  },
+  {
+   "term": "browser",
+   "policy": "speak-as-english",
+   "tamil": "பிரௌசர்",
+   "reverse": true
+  },
+  {
+   "term": "password",
+   "policy": "speak-as-english",
+   "tamil": "பாஸ்வேர்டு",
+   "reverse": true
+  },
+  {
+   "term": "download",
+   "policy": "speak-as-english",
+   "tamil": "டவுன்லோடு",
+   "reverse": true
+  },
+  {
+   "term": "upload",
+   "policy": "speak-as-english",
+   "tamil": "அப்லோடு",
+   "reverse": true
+  },
+  {
+   "term": "update",
+   "policy": "speak-as-english",
+   "tamil": "அப்டேட்",
+   "reverse": true
+  },
+  {
+   "term": "install",
+   "policy": "speak-as-english",
+   "tamil": "இன்ஸ்டால்",
+   "reverse": true
+  },
+  {
+   "term": "server",
+   "policy": "speak-as-english",
+   "tamil": "சர்வர்",
+   "reverse": true
+  },
+  {
+   "term": "database",
+   "policy": "speak-as-english",
+   "tamil": "டேட்டாபேஸ்",
+   "reverse": true
+  },
+  {
+   "term": "cloud",
+   "policy": "speak-as-english",
+   "tamil": "கிளவுட்",
+   "reverse": true
+  },
+  {
+   "term": "virus",
+   "policy": "speak-as-english",
+   "tamil": "வைரஸ்",
+   "reverse": true
+  },
+  {
+   "term": "network",
+   "policy": "speak-as-english",
+   "tamil": "நெட்வொர்க்",
+   "reverse": true
+  },
+  {
+   "term": "data",
+   "policy": "speak-as-english",
+   "tamil": "டேட்டா",
+   "reverse": true
+  },
+  {
+   "term": "file",
+   "policy": "speak-as-english",
+   "tamil": "ஃபைல்",
+   "reverse": true
+  },
+  {
+   "term": "folder",
+   "policy": "speak-as-english",
+   "tamil": "ஃபோல்டர்",
+   "reverse": true
+  },
+  {
+   "term": "settings",
+   "policy": "speak-as-english",
+   "tamil": "செட்டிங்ஸ்",
+   "reverse": true
+  },
+  {
+   "term": "video",
+   "policy": "speak-as-english",
+   "tamil": "வீடியோ",
+   "reverse": true
+  },
+  {
+   "term": "audio",
+   "policy": "speak-as-english",
+   "tamil": "ஆடியோ",
+   "reverse": true
+  },
+  {
+   "term": "streaming",
+   "policy": "speak-as-english",
+   "tamil": "ஸ்ட்ரீமிங்",
+   "reverse": true
+  },
+  {
+   "term": "podcast",
+   "policy": "speak-as-english",
+   "tamil": "பாட்காஸ்ட்",
+   "reverse": true
+  },
+  {
+   "term": "channel",
+   "policy": "speak-as-english",
+   "tamil": "சேனல்",
+   "reverse": true
+  },
+  {
+   "term": "like",
+   "policy": "speak-as-english",
+   "tamil": "லைக்",
+   "reverse": true
+  },
+  {
+   "term": "share",
+   "policy": "speak-as-english",
+   "tamil": "ஷேர்",
+   "reverse": true
+  },
+  {
+   "term": "comment",
+   "policy": "speak-as-english",
+   "tamil": "கமெண்ட்",
+   "reverse": true
+  },
+  {
+   "term": "post",
+   "policy": "speak-as-english",
+   "tamil": "போஸ்ட்",
+   "reverse": true
+  },
+  {
+   "term": "link",
+   "policy": "speak-as-english",
+   "tamil": "லிங்க்",
+   "reverse": true
+  },
+  {
+   "term": "Google",
+   "policy": "speak-as-english",
+   "tamil": "கூகுள்",
+   "reverse": true
+  },
+  {
+   "term": "YouTube",
+   "policy": "speak-as-english",
+   "tamil": "யூடியூப்",
+   "reverse": true
+  },
+  {
+   "term": "Facebook",
+   "policy": "speak-as-english",
+   "tamil": "ஃபேஸ்புக்",
+   "reverse": true
+  },
+  {
+   "term": "Instagram",
+   "policy": "speak-as-english",
+   "tamil": "இன்ஸ்டாகிராம்",
+   "reverse": true
+  },
+  {
+   "term": "WhatsApp",
+   "policy": "speak-as-english",
+   "tamil": "வாட்ஸ்அப்",
+   "reverse": true
+  },
+  {
+   "term": "Telegram",
+   "policy": "speak-as-english",
+   "tamil": "டெலிகிராம்",
+   "reverse": true
+  },
+  {
+   "term": "laptop",
+   "policy": "speak-as-english",
+   "tamil": "லேப்டாப்",
+   "reverse": true
+  },
+  {
+   "term": "mobile",
+   "policy": "speak-as-english",
+   "tamil": "மொபைல்",
+   "reverse": true
+  },
+  {
+   "term": "smartphone",
+   "policy": "speak-as-english",
+   "tamil": "ஸ்மார்ட்போன்",
+   "reverse": true
+  },
+  {
+   "term": "battery",
+   "policy": "speak-as-english",
+   "tamil": "பேட்டரி",
+   "reverse": true
+  },
+  {
+   "term": "camera",
+   "policy": "speak-as-english",
+   "tamil": "கேமரா",
+   "reverse": true
+  },
+  {
+   "term": "microphone",
+   "policy": "speak-as-english",
+   "tamil": "மைக்ரோஃபோன்",
+   "reverse": true
+  },
+  {
+   "term": "wifi",
+   "policy": "speak-as-english",
+   "tamil": "வைஃபை",
+   "reverse": true
+  },
+  {
+   "term": "bluetooth",
+   "policy": "speak-as-english",
+   "tamil": "புளூடூத்",
+   "reverse": true
+  },
+  {
+   "term": "bank",
+   "policy": "speak-as-english",
+   "tamil": "பேங்க்",
+   "reverse": true
+  },
+  {
+   "term": "loan",
+   "policy": "speak-as-english",
+   "tamil": "லோன்",
+   "reverse": true
+  },
+  {
+   "term": "credit",
+   "policy": "speak-as-english",
+   "tamil": "கிரெடிட்",
+   "reverse": true
+  },
+  {
+   "term": "debit",
+   "policy": "speak-as-english",
+   "tamil": "டெபிட்",
+   "reverse": true
+  },
+  {
+   "term": "invoice",
+   "policy": "speak-as-english",
+   "tamil": "இன்வாய்ஸ்",
+   "reverse": true
+  },
+  {
+   "term": "budget",
+   "policy": "speak-as-english",
+   "tamil": "பட்ஜெட்",
+   "reverse": true
+  },
+  {
+   "term": "insurance",
+   "policy": "speak-as-english",
+   "tamil": "இன்சூரன்ஸ்",
+   "reverse": true
+  },
+  {
+   "term": "policy",
+   "policy": "speak-as-english",
+   "tamil": "பாலிசி",
+   "reverse": true
+  },
+  {
+   "term": "discount",
+   "policy": "speak-as-english",
+   "tamil": "டிஸ்கவுண்ட்",
+   "reverse": true
+  },
+  {
+   "term": "wallet",
+   "policy": "speak-as-english",
+   "tamil": "வாலட்",
+   "reverse": true
+  },
+  {
+   "term": "payment",
+   "policy": "speak-as-english",
+   "tamil": "பேமெண்ட்",
+   "reverse": true
+  },
+  {
+   "term": "UPI",
+   "policy": "speak-as-english",
+   "tamil": "யுபிஐ",
+   "reverse": true
+  },
+  {
+   "term": "ATM",
+   "policy": "speak-as-english",
+   "tamil": "ஏடிஎம்",
+   "reverse": true
+  },
+  {
+   "term": "EMI",
+   "policy": "speak-as-english",
+   "tamil": "இஎம்ஐ",
+   "reverse": true
+  },
+  {
+   "term": "OTP",
+   "policy": "speak-as-english",
+   "tamil": "ஒடிபி",
+   "reverse": true
+  },
+  {
+   "term": "doctor",
+   "policy": "speak-as-english",
+   "tamil": "டாக்டர்",
+   "reverse": true
+  },
+  {
+   "term": "hospital",
+   "policy": "speak-as-english",
+   "tamil": "ஆஸ்பத்திரி",
+   "reverse": true
+  },
+  {
+   "term": "medicine",
+   "policy": "speak-as-english",
+   "tamil": "மெடிசின்",
+   "reverse": true
+  },
+  {
+   "term": "vaccine",
+   "policy": "speak-as-english",
+   "tamil": "வேக்சின்",
+   "reverse": true
+  },
+  {
+   "term": "clinic",
+   "policy": "speak-as-english",
+   "tamil": "கிளினிக்",
+   "reverse": true
+  },
+  {
+   "term": "pharmacy",
+   "policy": "speak-as-english",
+   "tamil": "பார்மசி",
+   "reverse": true
+  },
+  {
+   "term": "school",
+   "policy": "speak-as-english",
+   "tamil": "ஸ்கூல்",
+   "reverse": true
+  },
+  {
+   "term": "college",
+   "policy": "speak-as-english",
+   "tamil": "காலேஜ்",
+   "reverse": true
+  },
+  {
+   "term": "university",
+   "policy": "speak-as-english",
+   "tamil": "யுனிவர்சிட்டி",
+   "reverse": true
+  },
+  {
+   "term": "exam",
+   "policy": "speak-as-english",
+   "tamil": "எக்ஸாம்",
+   "reverse": true
+  },
+  {
+   "term": "certificate",
+   "policy": "speak-as-english",
+   "tamil": "சர்டிஃபிகெட்",
+   "reverse": true
+  },
+  {
+   "term": "degree",
+   "policy": "speak-as-english",
+   "tamil": "டிகிரி",
+   "reverse": true
+  },
+  {
+   "term": "course",
+   "policy": "speak-as-english",
+   "tamil": "கோர்ஸ்",
+   "reverse": true
+  },
+  {
+   "term": "training",
+   "policy": "speak-as-english",
+   "tamil": "ட்ரெய்னிங்",
+   "reverse": true
+  },
+  {
+   "term": "interview",
+   "policy": "speak-as-english",
+   "tamil": "இன்டர்வியூ்",
+   "reverse": true
+  },
+  {
+   "term": "salary",
+   "policy": "speak-as-english",
+   "tamil": "சேலரி",
+   "reverse": true
+  },
+  {
+   "term": "office",
+   "policy": "speak-as-english",
+   "tamil": "ஆஃபீஸ்",
+   "reverse": true
+  },
+  {
+   "term": "meeting",
+   "policy": "speak-as-english",
+   "tamil": "மீட்டிங்",
+   "reverse": true
+  },
+  {
+   "term": "presentation",
+   "policy": "speak-as-english",
+   "tamil": "ப்ரெஸன்டேஷன்",
+   "reverse": true
+  },
+  {
+   "term": "team",
+   "policy": "speak-as-english",
+   "tamil": "டீம்",
+   "reverse": true
+  },
+  {
+   "term": "manager",
+   "policy": "speak-as-english",
+   "tamil": "மேனேஜர்",
+   "reverse": true
+  },
+  {
+   "term": "director",
+   "policy": "speak-as-english",
+   "tamil": "டைரக்டர்",
+   "reverse": true
+  },
+  {
+   "term": "engineer",
+   "policy": "speak-as-english",
+   "tamil": "இன்ஜினியர்",
+   "reverse": true
+  },
+  {
+   "term": "developer",
+   "policy": "speak-as-english",
+   "tamil": "டெவலப்பர்",
+   "reverse": true
+  },
+  {
+   "term": "designer",
+   "policy": "speak-as-english",
+   "tamil": "டிசைனர்",
+   "reverse": true
+  },
+  {
+   "term": "online",
+   "policy": "speak-as-english",
+   "tamil": "ஆன்லைன்",
+   "reverse": true
+  },
+  {
+   "term": "offline",
+   "policy": "speak-as-english",
+   "tamil": "ஆஃப்லைன்",
+   "reverse": true
+  },
+  {
+   "term": "digital",
+   "policy": "speak-as-english",
+   "tamil": "டிஜிட்டல்",
+   "reverse": true
+  },
+  {
+   "term": "system",
+   "policy": "speak-as-english",
+   "tamil": "சிஸ்டம்",
+   "reverse": true
+  },
+  {
+   "term": "service",
+   "policy": "speak-as-english",
+   "tamil": "சர்வீஸ்",
+   "reverse": true
+  },
+  {
+   "term": "support",
+   "policy": "speak-as-english",
+   "tamil": "சப்போர்ட்",
+   "reverse": true
+  },
+  {
+   "term": "feedback",
+   "policy": "speak-as-english",
+   "tamil": "ஃபீட்பேக்",
+   "reverse": true
+  },
+  {
+   "term": "status",
+   "policy": "speak-as-english",
+   "tamil": "ஸ்டேட்டஸ்",
+   "reverse": true
+  },
+  {
+   "term": "version",
+   "policy": "speak-as-english",
+   "tamil": "வர்ஷன்",
+   "reverse": true
+  },
+  {
+   "term": "launch",
+   "policy": "speak-as-english",
+   "tamil": "லாஞ்ச்",
+   "reverse": true
+  },
+  {
+   "term": "event",
+   "policy": "speak-as-english",
+   "tamil": "இவென்ட்",
+   "reverse": true
+  },
+  {
+   "term": "plan",
+   "policy": "speak-as-english",
+   "tamil": "பிளான்",
+   "reverse": true
+  },
+  {
+   "term": "package",
+   "policy": "speak-as-english",
+   "tamil": "பேக்கேஜ்",
+   "reverse": true
+  },
+  {
+   "term": "deal",
+   "policy": "speak-as-english",
+   "tamil": "டீல்",
+   "reverse": true
+  },
+  {
+   "term": "trend",
+   "policy": "speak-as-english",
+   "tamil": "ட்ரெண்டு",
+   "reverse": true
+  },
+  {
+   "term": "viral",
+   "policy": "speak-as-english",
+   "tamil": "வைரல்",
+   "reverse": true
+  },
+  {
+   "term": "content",
+   "policy": "speak-as-english",
+   "tamil": "கன்டெண்ட்",
+   "reverse": true
+  },
+  {
+   "term": "creator",
+   "policy": "speak-as-english",
+   "tamil": "கிரியேட்டர்",
+   "reverse": true
+  },
+  {
+   "term": "brand",
+   "policy": "speak-as-english",
+   "tamil": "பிராண்டு",
+   "reverse": true
+  },
+  {
+   "term": "product",
+   "policy": "speak-as-english",
+   "tamil": "ப்ரொடக்ட்",
+   "reverse": true
+  },
+  {
+   "term": "market",
+   "policy": "speak-as-english",
+   "tamil": "மார்க்கெட்",
+   "reverse": true
+  },
+  {
+   "term": "percent",
+   "policy": "speak-as-english",
+   "tamil": "பர்சென்ட்",
+   "reverse": true
+  },
+  {
+   "term": "balance",
+   "policy": "speak-as-english",
+   "tamil": "பேலன்ஸ்",
+   "reverse": true
+  },
+  {
+   "term": "deposit",
+   "policy": "speak-as-english",
+   "tamil": "டெபாசிட்",
+   "reverse": true
+  },
+  {
+   "term": "number",
+   "policy": "speak-as-english",
+   "tamil": "நம்பர்",
+   "reverse": true
+  },
+  {
+   "term": "ID",
+   "policy": "speak-as-english",
+   "tamil": "ஐடி",
+   "reverse": true
+  },
+  {
+   "term": "app",
+   "policy": "speak-as-english",
+   "tamil": "ஆப்",
+   "reverse": true
+  },
+  {
+   "term": "application",
+   "policy": "speak-as-english",
+   "tamil": "அப்ளிகேஷன்",
+   "reverse": true
+  },
+  {
+   "term": "notification",
+   "policy": "speak-as-english",
+   "tamil": "நோட்டிஃபிகேஷன்",
+   "reverse": true
+  },
+  {
+   "term": "screenshot",
+   "policy": "speak-as-english",
+   "tamil": "ஸ்கிரீன்ஷாட்",
+   "reverse": true
+  },
+  {
+   "term": "program",
+   "policy": "speak-as-english",
+   "tamil": "ப்ரோகிராம்",
+   "reverse": true
+  },
+  {
+   "term": "scheme",
+   "policy": "speak-as-english",
+   "tamil": "ஸ்கீம்",
+   "reverse": true
+  },
+  {
+   "term": "bonus",
+   "policy": "speak-as-english",
+   "tamil": "போனஸ்",
+   "reverse": true
+  },
+  {
+   "term": "reward",
+   "policy": "speak-as-english",
+   "tamil": "ரிவார்டு",
+   "reverse": true
+  },
+  {
+   "term": "level",
+   "policy": "speak-as-english",
+   "tamil": "லெவல்",
+   "reverse": true
+  },
+  {
+   "term": "score",
+   "policy": "speak-as-english",
+   "tamil": "ஸ்கோர்",
+   "reverse": true
+  },
+  {
+   "term": "rank",
+   "policy": "speak-as-english",
+   "tamil": "ராங்க்",
+   "reverse": true
+  },
+  {
+   "term": "influencer",
+   "policy": "speak-as-english",
+   "tamil": "இன்ஃப்ளுயன்சர்",
+   "reverse": true
+  },
+  {
+   "term": "delivery",
+   "policy": "speak-as-english",
+   "tamil": "டெலிவரி",
+   "reverse": true
+  },
+  {
+   "term": "order",
+   "policy": "speak-as-english",
+   "tamil": "ஆர்டர்",
+   "reverse": true
+  },
+  {
+   "term": "restaurant",
+   "policy": "speak-as-english",
+   "tamil": "ரெஸ்டாரண்ட்",
+   "reverse": true
+  },
+  {
+   "term": "hotel",
+   "policy": "speak-as-english",
+   "tamil": "ஹோட்டல்",
+   "reverse": true
+  },
+  {
+   "term": "ticket",
+   "policy": "speak-as-english",
+   "tamil": "டிக்கெட்",
+   "reverse": true
+  },
+  {
+   "term": "booking",
+   "policy": "speak-as-english",
+   "tamil": "புக்கிங்",
+   "reverse": true
+  },
+  {
+   "term": "traffic",
+   "policy": "speak-as-english",
+   "tamil": "ட்ராஃபிக்",
+   "reverse": true
+  },
+  {
+   "term": "parking",
+   "policy": "speak-as-english",
+   "tamil": "பார்க்கிங்",
+   "reverse": true
+  },
+  {
+   "term": "petrol",
+   "policy": "speak-as-english",
+   "tamil": "பெட்ரோல்",
+   "reverse": true
+  },
+  {
+   "term": "electric",
+   "policy": "speak-as-english",
+   "tamil": "எலக்ட்ரிக்",
+   "reverse": true
+  },
+  {
+   "term": "mortgage",
+   "policy": "speak-as-english",
+   "tamil": "மார்கேஜ்",
+   "reverse": true
+  },
+  {
+   "term": "listing",
+   "policy": "speak-as-english",
+   "tamil": "லிஸ்டிங்",
+   "reverse": true
+  },
+  {
+   "term": "closing",
+   "policy": "speak-as-english",
+   "tamil": "கிளோசிங்",
+   "reverse": true
+  }
+ ]
 }
