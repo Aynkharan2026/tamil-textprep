@@ -27,7 +27,7 @@ from .classify import Span, heuristic_spans, parse_tags
 from .lexicon import apply_english_exceptions
 from .verbalize import verbalize
 
-__version__ = "0.1.0"
+__version__ = "0.2.1"
 logger = logging.getLogger("tamil_textprep")
 
 _ZW = re.compile(r"[​‌‍⁠﻿]")
