@@ -84,10 +84,19 @@ def verbalize(span: Span, convention: str = "million") -> str:
         whole, fr = v.split(".")
         return nw.decimal(int(whole), fr, conv)
     if cls == "range":
-        a, b = re.split(r"\s?[–—-]\s?", v)
-        # year-range reads as years (2026–2028); else cardinals
-        if re.fullmatch(r"(19|20)\d{2}", a.strip()) and re.fullmatch(r"(19|20)\d{2}", b.strip()):
-            return f"{nw.year(int(a))} முதல் {nw.year(int(b))} வரை"
+        a, b = (x.strip() for x in re.split(r"\s?[–—-]\s?", v))
+        # Year ranges (16xx–20xx, historical corpus needs pre-1900):
+        # abbreviated second years expand — 1937–45 means 1937–1945,
+        # 1870–1 means 1870–1871 (Layer-1 corpus-audit find: the literal
+        # reading produced "from 1870 to one").
+        if re.fullmatch(r"(1[6-9]|20)\d{2}", a):
+            ai = int(a)
+            if re.fullmatch(r"(1[6-9]|20)\d{2}", b):
+                return f"{nw.year(ai)} முதல் {nw.year(int(b))} வரை"
+            if re.fullmatch(r"\d{1,2}", b):
+                bi = ai - ai % (10 ** len(b)) + int(b)
+                if bi >= ai:
+                    return f"{nw.year(ai)} முதல் {nw.year(bi)} வரை"
         return f"{nw.cardinal(_int(a), conv)} முதல் {nw.cardinal(_int(b), conv)} வரை"
     if cls == "comma_num":
         return nw.cardinal(_int(v), conv)

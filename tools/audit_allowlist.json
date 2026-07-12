@@ -1,0 +1,11 @@
+{
+  "comment": "Reviewed-and-accepted Layer-1 audit findings. Every entry was examined by a human/CE and classified. The gate fails ONLY on findings not covered here — new unclaimed diffs always block. Remove entries when the underlying limitation is fixed.",
+  "entries": [
+    {"article": "41@2024-09", "src_prefix": "147 – 186)", "class": "diff-alignment artifact", "reason": "page-citation cluster; range+cardinal rows fired correctly, word-diff hunk association fails on the paren shift"},
+    {"article": "02@2024-10", "src_prefix": "11 -6", "class": "degenerate numeric table", "reason": "vote-tally table; per-number rows claimed, alignment scrambles hunks. Proper fix: source should tag tallies {{count:...}}"},
+    {"article": "02@2024-10", "src_prefix": "30", "class": "degenerate numeric table", "reason": "same tally table"},
+    {"article": "02@2024-10", "src_prefix": "28", "class": "degenerate numeric table", "reason": "same tally table"},
+    {"article": "45@2026-07", "src_prefix": "198 - ‘jha;tPL’", "class": "diff-alignment artifact", "reason": "Bamini-mojibake footer token adjacent to page number"},
+    {"article": "50@2026-07", "src_prefix": "2026", "class": "documented failure mode", "reason": "reference number 2026-223 read as a range — the known IDs-vs-ranges ambiguity; cure is tagging, not a heuristic change"}
+  ]
+}

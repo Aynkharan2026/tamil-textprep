@@ -144,6 +144,6 @@ def normalize(
     result = "".join(out)
 
     # Lexicon / English-exception layer
-    result = apply_english_exceptions(result, engine=engine)
+    result = apply_english_exceptions(result, engine=engine, report=report)
 
     return re.sub(r"[ \t]+", " ", result).strip()
