@@ -1,0 +1,23 @@
+{
+  "comment": "English-in-Tamil exception table. OWNED BY KARAN / KUMAR ANNAI — edit freely, no code changes needed. policy: speak-as-english | transliterate | spell-out. Optional per-engine override key 'v2' (bulbul:v2 garbles Latin: VoxTN->'Voxel', PBX->'போக்ஸ்' in 2026-07-12 testing). 'spelled' is the letter-by-letter form for spell-out.",
+  "entries": [
+    {"term": "VoxTN",     "policy": "transliterate", "tamil": "வொக்ஸ் ரி என்"},
+    {"term": "ThaiVeedu", "policy": "transliterate", "tamil": "தாய்வீடு"},
+    {"term": "Aravam",    "policy": "transliterate", "tamil": "அரவம்"},
+    {"term": "Toronto",   "policy": "transliterate", "tamil": "ரொறன்ரோ"},
+    {"term": "Scarborough","policy": "transliterate", "tamil": "ஸ்காபரோ"},
+    {"term": "Ontario",   "policy": "transliterate", "tamil": "ஒன்ராறியோ"},
+    {"term": "Montreal",  "policy": "transliterate", "tamil": "மொன்றியால்"},
+    {"term": "Jaffna",    "policy": "transliterate", "tamil": "யாழ்ப்பாணம்"},
+    {"term": "AI",        "policy": "spell-out", "tamil": "ஏ.ஐ", "spelled": "ஏ ஐ"},
+    {"term": "PBX",       "policy": "spell-out", "tamil": "பி.பி.எக்ஸ்", "spelled": "பி பி எக்ஸ்"},
+    {"term": "OEB",       "policy": "spell-out", "tamil": "ஓ.ஈ.பி", "spelled": "ஓ ஈ பி"},
+    {"term": "PR",        "policy": "spell-out", "tamil": "பி.ஆர்", "spelled": "பி ஆர்"},
+    {"term": "kWh",       "policy": "transliterate", "tamil": "கிலோவாற் மணித்தியாலம்"},
+    {"term": "GPS",       "policy": "spell-out", "tamil": "ஜி.பி.எஸ்", "spelled": "ஜி பி எஸ்"},
+    {"term": "OK",        "policy": "transliterate", "tamil": "ஓகே"},
+    {"term": "email",     "policy": "transliterate", "tamil": "மின்னஞ்சல்"},
+    {"term": "Canada",    "policy": "transliterate", "tamil": "கனடா", "v2": "transliterate"},
+    {"term": "IRCC",      "policy": "spell-out", "tamil": "ஐ.ஆர்.சி.சி", "spelled": "ஐ ஆர் சி சி"}
+  ]
+}
