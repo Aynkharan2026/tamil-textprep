@@ -1,6 +1,6 @@
 # tamil-textprep
 
-**Eezham (Sri Lankan) Tamil text preparation for speech and language systems.**
+**Eelam (also written Eezham) Tamil — Sri Lankan Tamil — text preparation for speech and language systems.**
 
 Turns raw text into fully-verbalized Tamil that a TTS engine can speak correctly — with Eezham forms preserved, not normalized away.
 
@@ -8,7 +8,7 @@ Turns raw text into fully-verbalized Tamil that a TTS engine can speak correctly
 
 ## Why this exists
 
-Every major AI model is trained on **Indian Tamil**. Eezham Tamil — the Tamil of Sri Lanka and its diaspora — is a different variant. And the models do not merely fail to recognize it.
+Every major AI model is trained on **Indian Tamil**. Eelam Tamil — the Tamil of Sri Lanka and its diaspora (தமிழீழம், Tamil Eelam) — is a different variant. And the models do not merely fail to recognize it.
 
 **They silently normalize it into Indian Tamil.**
 
@@ -38,7 +38,7 @@ sanitize → classify → verbalize → Eezham lexicon → emit
 ```
 
 - **Numerals, context-aware.** `2024` → `இரண்டாயிரத்து இருபத்து நான்காம் ஆண்டு` (year), not four digits. `65` → `அறுபத்தைந்து வயது` (age) vs `அறுபத்தைந்து` (count) vs a digit-string (phone). Dates, currency, ordinals, percentages, decimals, ranges.
-- **Eezham-correct forms.** `டொலர்`, not `டாலர்`. Proper sandhi. Verified against a real Eezham corpus, not assumed.
+- **Eelam-correct forms.** `டொலர்`, not `டாலர்`. Proper sandhi. Verified against a real Eezham corpus, not assumed.
 - **The dual convention, handled properly.** Diaspora Tamil uses *both*: **மில்லியன்** in Canadian/Western contexts, **லட்சம்/கோடி** for homeland contexts. This is not an ambiguity to resolve — it is a context rule, and both are correct.
 - **English-in-Tamil, governed.** Brand names, proper nouns, acronyms — handled by an editable table, not by guesswork.
 - **Every transformation is attributable.** Each change carries the rule ID that produced it. Nothing changes silently.
@@ -83,6 +83,10 @@ All 13 real victim words are now permanent regression tests. Reverse translitera
 
 ---
 
+## Scope — what this corpus does and does not cover
+
+The evidence base is *ThaiVeedu*, a **Jaffna-weighted diaspora corpus**. Eelam Tamil is not monolithic: Jaffna and Batticaloa (Mattakkalappu) differ, and Malaiyaha (up-country) Tamil descends from Indian Tamil entirely — a different lineage. This library is **derived from a Jaffna-weighted diaspora corpus; contributions from other Eelam regions are welcome and needed.** We do not claim to speak for regions we have no corpus for.
+
 ## Evidence
 
 Usage rulings are settled by **counting the corpus, not asking a model.** Drawn from *ThaiVeedu* (தாய்வீடு), a Tamil diaspora magazine — 1,030 structured articles:
@@ -99,7 +103,7 @@ Where the corpus is silent, the question is flagged for a human editor — never
 
 ## Contributing
 
-**If you speak Eezham Tamil and something here sounds wrong, you are the authority. Please open an issue.**
+**If you speak Eelam Tamil — any region — and something here sounds wrong, you are the authority. Please open an issue.**
 
 Especially wanted:
 - Words the library gets wrong
@@ -116,7 +120,7 @@ Built by **[VoxTN](https://voxtn.com)** — sovereign Tamil-first AI and telepho
 
 > *AI is not a luxury item. Built by one of you, for all of you.*
 
-Eezham Tamil survived a war. It should not be quietly edited out of existence by a text pipeline.
+Eelam Tamil survived a war. It should not be quietly edited out of existence by a text pipeline.
 
 ## License
 
